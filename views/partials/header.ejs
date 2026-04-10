@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Library System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background: radial-gradient(circle at 20% 20%, #1e1b4b, #020617);
+      min-height: 100vh;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* 🌌 Floating Glow Effects */
+    body::before {
+      content: "";
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #8b5cf6, transparent);
+      top: -200px;
+      left: -200px;
+      filter: blur(150px);
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #3b82f6, transparent);
+      bottom: -200px;
+      right: -200px;
+      filter: blur(150px);
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    /* ✨ Smooth Scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ✨ Glass Shine Effect */
+    .glass-card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    /* ✨ Hover Glow */
+    .glow:hover {
+      box-shadow: 0 0 25px rgba(139,92,246,0.6);
+    }
+  </style>
+</head>
+
+<body class="relative">

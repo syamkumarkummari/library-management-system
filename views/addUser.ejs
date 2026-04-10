@@ -1,0 +1,72 @@
+<%- include('partials/header') %>
+
+<div class="flex">
+<%- include('partials/sidebar') %>
+
+<div class="ml-64 p-8 w-full min-h-screen 
+     bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#1e3a8a] text-white">
+
+<h1 class="text-3xl font-bold mb-8">➕ Add New User</h1>
+
+<div class="max-w-xl mx-auto bg-white/10 backdrop-blur-xl 
+            border border-white/20 rounded-2xl p-8 shadow-lg">
+
+<form action="/admin/users/add" method="POST" class="space-y-5">
+
+  <!-- FULL NAME -->
+  <div>
+    <label class="text-white/70">Full Name</label>
+    <input name="full_name" required
+      class="w-full mt-1 p-3 rounded bg-white/10 border border-white/20 text-white">
+  </div>
+
+  <!-- REGISTER NUMBER -->
+  <div>
+    <label class="text-white/70">Register Number</label>
+    <input name="reg_no" required
+      class="w-full mt-1 p-3 rounded bg-white/10 border border-white/20 text-white">
+  </div>
+
+  <!-- DEPARTMENT -->
+  <div>
+    <label class="text-white/70">Department</label>
+    <input name="dept" required
+      class="w-full mt-1 p-3 rounded bg-white/10 border border-white/20 text-white">
+  </div>
+
+  <!-- YEAR -->
+  <div>
+    <label class="text-white/70">Academic Year</label>
+    <input name="year" required
+      class="w-full mt-1 p-3 rounded bg-white/10 border border-white/20 text-white">
+  </div>
+
+  <!-- USERNAME -->
+  <div>
+    <label class="text-white/70">Username</label>
+    <input name="username" required
+      class="w-full mt-1 p-3 rounded bg-white/10 border border-white/20 text-white">
+  </div>
+
+  <!-- PASSWORD -->
+  <div>
+    <label class="text-white/70">Password</label>
+    <input type="password" name="password" required
+      class="w-full mt-1 p-3 rounded bg-white/10 border border-white/20 text-white">
+  </div>
+
+  <!-- BUTTON -->
+  <button
+    class="w-full bg-gradient-to-r from-purple-500 to-blue-500 
+           p-3 rounded-lg hover:scale-105 transition shadow-lg">
+    Add User
+  </button>
+
+</form>
+
+</div>
+
+</div>
+</div>
+
+<%- include('partials/footer') %>

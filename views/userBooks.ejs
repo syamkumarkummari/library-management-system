@@ -1,0 +1,98 @@
+<%- include('partials/header') %>
+
+<div class="flex">
+<%- include('partials/sidebar') %>
+
+<div class="ml-64 p-6 w-full min-h-screen 
+     bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#1e3a8a] text-white">
+
+<!-- TITLE -->
+<h1 class="text-3xl font-bold mb-6 flex items-center gap-2">
+  📚 Available Books
+</h1>
+
+<!-- 🔍 SEARCH BAR -->
+<input id="searchInput" type="text" placeholder="Search books..."
+class="w-full p-3 mb-6 rounded-lg bg-white/10 border border-white/20 text-white 
+placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500">
+
+<!-- BOOK GRID -->
+<div id="bookContainer" 
+class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+<% books.forEach(book => { %>
+
+<a href="/user/book/<%= book.id %>" 
+   class="book-card block transition duration-300">
+
+<div class="book-item bg-white/10 backdrop-blur-xl border border-white/20 
+rounded-2xl p-4 text-center shadow-lg 
+hover:scale-105 hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] 
+transition duration-300 cursor-pointer">
+
+<!-- IMAGE -->
+<div class="overflow-hidden rounded-xl">
+  <img 
+    src="<%= book.image || 'https://via.placeholder.com/300x400' %>"
+    class="w-full aspect-[5/7] object-cover rounded-xl mb-3 
+           transition duration-500 hover:scale-110">
+</div>
+
+<!-- TITLE -->
+<h2 class="book-title font-semibold text-lg">
+  <%= book.book_name %>
+</h2>
+
+<!-- AUTHOR -->
+<p class="book-author text-white/60 text-sm">
+  <%= book.author %>
+</p>
+
+<!-- STATUS -->
+<% if (book.quantity > 0) { %>
+  <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm inline-block mt-2">
+    Available (<%= book.quantity %>)
+  </span>
+<% } else { %>
+  <span class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-sm inline-block mt-2">
+    Not Available
+  </span>
+<% } %>
+
+</div>
+
+</a>
+
+<% }) %>
+
+</div>
+
+</div>
+</div>
+
+<!-- 🔥 SEARCH SCRIPT -->
+<script>
+const searchInput = document.getElementById('searchInput');
+
+searchInput.addEventListener('keyup', function () {
+
+  const value = this.value.toLowerCase();
+  const books = document.querySelectorAll('.book-card');
+
+  books.forEach(card => {
+
+    const title = card.querySelector('.book-title').innerText.toLowerCase();
+    const author = card.querySelector('.book-author').innerText.toLowerCase();
+
+    if (title.includes(value) || author.includes(value)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+
+  });
+
+});
+</script>
+
+<%- include('partials/footer') %>

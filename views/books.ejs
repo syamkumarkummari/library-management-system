@@ -1,0 +1,128 @@
+<%- include('partials/header') %>
+
+<div class="flex relative z-10">
+<%- include('partials/sidebar') %>
+
+<div class="ml-64 p-8 w-full min-h-screen">
+
+<h1 class="text-3xl font-bold mb-8 text-white flex items-center gap-2">
+  📘 Books
+</h1>
+
+<!-- 🔍 SEARCH -->
+<input id="searchInput" placeholder="Search books..."
+class="mb-6 w-full p-3 rounded-lg bg-white/10 text-white border border-white/20 placeholder-white/60 outline-none">
+
+<!-- ➕ ADD BOOK -->
+<form action="/books/add" method="POST"
+class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 mb-8 shadow-xl grid grid-cols-4 gap-4">
+
+<input name="book_name" placeholder="Book Name"
+class="p-3 rounded-lg bg-white/10 text-white border border-white/10 outline-none">
+
+<input name="author" placeholder="Author"
+class="p-3 rounded-lg bg-white/10 text-white border border-white/10 outline-none">
+
+<input name="quantity" placeholder="Quantity"
+class="p-3 rounded-lg bg-white/10 text-white border border-white/10 outline-none">
+
+<input name="image" placeholder="Image URL"
+class="p-3 rounded-lg bg-white/10 text-white border border-white/10 outline-none">
+
+<button class="col-span-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white p-3 rounded-xl hover:scale-105 transition">
+  Add Book
+</button>
+
+</form>
+
+<!-- 📋 TABLE -->
+<div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden">
+
+<table class="w-full text-white" id="bookTable">
+
+<thead class="bg-gradient-to-r from-purple-500/40 to-blue-500/40">
+<tr>
+  <th class="p-4">Image</th>
+  <th class="p-4">Book</th>
+  <th class="p-4">Author</th>
+  <th class="p-4">Qty</th>
+  <th class="p-4">Status</th>
+  <th class="p-4">Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+<% books.forEach(book => { %>
+<tr class="border-b border-white/10 hover:bg-white/5 transition text-center">
+
+  <!-- IMAGE -->
+  <td class="p-3">
+    <img src="<%= book.image || 'https://via.placeholder.com/60x80' %>" 
+         class="w-12 h-16 object-cover rounded">
+  </td>
+
+  <!-- NAME -->
+  <td class="p-3 font-semibold"><%= book.book_name %></td>
+
+  <!-- AUTHOR -->
+  <td class="p-3"><%= book.author %></td>
+
+  <!-- QTY -->
+  <td class="p-3"><%= book.quantity %></td>
+
+  <!-- STATUS -->
+  <td class="p-3">
+    <% if (book.quantity > 0) { %>
+      <span class="px-3 py-1 rounded-full text-sm bg-green-500/20 text-green-300">
+        Available
+      </span>
+    <% } else { %>
+      <span class="px-3 py-1 rounded-full text-sm bg-red-500/20 text-red-300">
+        Out of Stock
+      </span>
+    <% } %>
+  </td>
+
+  <!-- ACTION -->
+  <td class="p-3 space-x-2">
+
+    <!-- ✏ EDIT -->
+    <a href="/books/edit/<%= book.id %>"
+       class="bg-blue-500 px-3 py-1 rounded hover:bg-blue-600 transition">
+       Edit
+    </a>
+
+    <!-- ❌ DELETE -->
+    <a href="/books/delete/<%= book.id %>"
+       class="bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition">
+       Delete
+    </a>
+
+  </td>
+
+</tr>
+<% }) %>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+</div>
+
+<!-- 🔍 SEARCH SCRIPT -->
+<script>
+document.getElementById("searchInput").addEventListener("keyup", function() {
+  let value = this.value.toLowerCase();
+  let rows = document.querySelectorAll("#bookTable tbody tr");
+
+  rows.forEach(row => {
+    row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
+  });
+});
+</script>
+
+<%- include('partials/footer') %>
